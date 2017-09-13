@@ -2,6 +2,7 @@
 
 ./configure \
     --prefix="${PREFIX}" \
+    --enable-jit \
 
 make
 make check
