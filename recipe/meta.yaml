@@ -8,6 +8,8 @@ package:
 source:
   url: https://ftp.pcre.org/pub/pcre/{{ name }}-{{ version }}.tar.bz2
   sha256: 74c473ffaba9e13db6951fd146e0143fe9887852ce73406a03277af1d9b798ca
+  patches:
+    - cmake-configure-alignment.patch
 
 build:
   number: 0
@@ -23,7 +25,6 @@ requirements:
     - ninja
   host:
     - bzip2
-    - libedit
     - zlib
 
 test:
@@ -33,7 +34,16 @@ test:
     - pcre2-config --version
     - test -f ${PREFIX}/include/pcre2.h
     - test -f ${PREFIX}/include/pcre2posix.h
-    - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}     # [not win]
+    - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}        # [not win]
+    - test -f ${PREFIX}/lib/libpcre2-posix.2${SHLIB_EXT}      # [osx]
+    - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}.2      # [linux]
+    - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}.2.0.3  # [linux]
+    - test -f ${PREFIX}/lib/libpcre2-8${SHLIB_EXT}            # [not win]
+    - test -f ${PREFIX}/lib/libpcre2-8.0${SHLIB_EXT}          # [osx]
+    - test -f ${PREFIX}/lib/libpcre2-8${SHLIB_EXT}.0          # [linux]
+    - test -f ${PREFIX}/lib/libpcre2-8${SHLIB_EXT}.0.9.0      # [linux]
+    - test -f ${PREFIX}/lib/pkgconfig/libpcre2-8.pc           # [not win]
+    - test -f ${PREFIX}/lib/pkgconfig/libpcre2-posix.pc       # [not win]
 
 about:
   home: http://www.pcre.org/
