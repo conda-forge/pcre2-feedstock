@@ -13,7 +13,6 @@ source:
 
 build:
   number: 0
-  skip: True  # [win]
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=pcre2
     - {{ pin_subpackage("pcre2", max_pin="x.x") }}
@@ -31,9 +30,10 @@ test:
   commands:
     - pcre2test --version
     - pcre2grep --version
-    - pcre2-config --version
-    - test -f ${PREFIX}/include/pcre2.h
-    - test -f ${PREFIX}/include/pcre2posix.h
+
+    - pcre2-config --version                                  # [not win]
+    - test -f ${PREFIX}/include/pcre2.h                       # [not win]
+    - test -f ${PREFIX}/include/pcre2posix.h                  # [not win]
     - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}        # [not win]
     - test -f ${PREFIX}/lib/libpcre2-posix.2${SHLIB_EXT}      # [osx]
     - test -f ${PREFIX}/lib/libpcre2-posix${SHLIB_EXT}.2      # [linux]
@@ -44,6 +44,13 @@ test:
     - test -f ${PREFIX}/lib/libpcre2-8${SHLIB_EXT}.0.9.0      # [linux]
     - test -f ${PREFIX}/lib/pkgconfig/libpcre2-8.pc           # [not win]
     - test -f ${PREFIX}/lib/pkgconfig/libpcre2-posix.pc       # [not win]
+
+    - if not exist %LIBRARY_INC%\\pcre2.h exit 1                              # [win]
+    - if not exist %LIBRARY_INC%\\pcre2posix.h exit 1                         # [win]
+    - if not exist %LIBRARY_BIN%\\pcre2-8.dll exit 1                          # [win]
+    - if not exist %LIBRARY_BIN%\\pcre2-posix.dll exit 1                      # [win]
+    - if not exist %LIBRARY_PREFIX%\\lib\\pkgconfig\\libpcre2-posix.pc exit 1  # [win]
+    - if not exist %LIBRARY_PREFIX%\\lib\\pkgconfig\\libpcre2-8.pc exit 1      # [win]
 
 about:
   home: http://www.pcre.org/
