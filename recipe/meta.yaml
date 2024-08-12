@@ -8,9 +8,11 @@ package:
 source:
   url: https://github.com/PCRE2Project/pcre2/archive/refs/tags/pcre2-{{ version }}.tar.gz
   sha256: 07a002e8216382a96f722bc4a831f3d77457fe3e9e62a6dff250a2dd0e9c5e6d
+  patches:
+    - gh366.patch
 
 build:
-  number: 0
+  number: 2
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=pcre2
     - {{ pin_subpackage("pcre2", max_pin="x.x") }}
@@ -74,8 +76,8 @@ outputs:
         - test -f ${PREFIX}/lib/pkgconfig/libpcre2-16.pc                           # [not win]
         - test -f ${PREFIX}/lib/pkgconfig/libpcre2-32.pc                           # [not win]
         - test -f ${PREFIX}/lib/pkgconfig/libpcre2-posix.pc                        # [not win]
-        - test -f ${PREFIX}/cmake/pcre2-config.cmake                               # [not win]
-        - test -f ${PREFIX}/cmake/pcre2-config-version.cmake                       # [not win]
+        - test -f ${PREFIX}/lib/cmake/pcre2/pcre2-config.cmake                     # [not win]
+        - test -f ${PREFIX}/lib/cmake/pcre2/pcre2-config-version.cmake             # [not win]
 
         - if not exist %LIBRARY_INC%\\pcre2.h exit 1                               # [win]
         - if not exist %LIBRARY_INC%\\pcre2posix.h exit 1                          # [win]
@@ -91,8 +93,9 @@ outputs:
         - if not exist %LIBRARY_LIB%\\pkgconfig\\libpcre2-8.pc exit 1              # [win]
         - if not exist %LIBRARY_LIB%\\pkgconfig\\libpcre2-16.pc exit 1             # [win]
         - if not exist %LIBRARY_LIB%\\pkgconfig\\libpcre2-32.pc exit 1             # [win]
-        - if not exist %LIBRARY_PREFIX%\\cmake\\pcre2-config.cmake exit 1          # [win]
-        - if not exist %LIBRARY_PREFIX%\\cmake\\pcre2-config-version.cmake exit 1  # [win]
+        - if not exist %LIBRARY_PREFIX%\\lib\\cmake\\pcre2\\pcre2-config.cmake exit 1          # [win]
+        - if not exist %LIBRARY_PREFIX%\\lib\\cmake\\pcre2\\pcre2-config-version.cmake exit 1  # [win]
+
   - name: pcre2-static
     script: build-static.sh  # [unix]
     script: bld-static.bat  # [win]
