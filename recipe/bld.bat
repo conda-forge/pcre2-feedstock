@@ -3,7 +3,7 @@ CXXFLAGS="${CXXFLAGS} -O3"
 
 mkdir "%SRC_DIR%"\build_cmake
 pushd "%SRC_DIR%"\build_cmake
-cmake ^
+cmake %CMAKE_ARGS% ^
     -DBUILD_SHARED_LIBS=ON ^
     -DBUILD_STATIC_LIBS=ON ^
     -DCMAKE_BUILD_TYPE=release ^
@@ -20,5 +20,8 @@ if errorlevel 1 exit 1
 sed -ie "s/\$<TARGET_FILE:pcre2test>/pcre2test.exe/" pcre2_test.bat
 cp -r ..\testdata .
 if errorlevel 1 exit 1
-ninja test
-if errorlevel 1 exit 1
+
+if not "%CONDA_BUILD_CROSS_COMPILATION%" == "1" (
+  ninja test
+  if errorlevel 1 exit 1
+)
