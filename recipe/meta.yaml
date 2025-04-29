@@ -8,8 +8,6 @@ package:
 source:
   url: https://github.com/PCRE2Project/pcre2/archive/refs/tags/pcre2-{{ version }}.tar.gz
   sha256: 35ce7d21f511c4a81d7079164077d25fbc41af00f19e1b547801df905c5f0fab
-  patches:
-    - gh366.patch
 
 build:
   number: 0
@@ -124,7 +122,7 @@ about:
   home: http://www.pcre.org/
   license: BSD-3-Clause
   license_family: BSD
-  license_file: LICENCE
+  license_file: COPYING
   summary: Regular expression pattern matching using Perl 5 syntax and semantics.
   description: |
     The PCRE library is a set of functions that implement regular expression pattern matching
