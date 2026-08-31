@@ -1,4 +1,4 @@
-{% set version = "10.47" %}
+{% set version = "10.48" %}
 
 {% set sover_posix = "3.0.7" %}
 {% set sover_posix_major = sover_posix.split(".")[0] %}
@@ -11,13 +11,13 @@ package:
 
 source:
   - url: https://github.com/PCRE2Project/pcre2/archive/refs/tags/pcre2-{{ version }}.tar.gz
-    sha256: 409c443549b13b216da40049850a32f3e6c57d4224ab11553ab5a786878a158e
+    sha256: 38c2a44986d70050f5fc8219901de87fc32784ab271d3c7d4400683a0b76794b
   - url: https://github.com/zherczeg/sljit/archive/45f910b78c6605ebf5b53d3ec7cb00f2312fe417.tar.gz
     sha256: ea5a6fb45e050f813f070ecaa098fe0389068beea61ac7dce5410a0c642ccfa3
     folder: deps/sljit
 
 build:
-  number: 1
+  number: 0
   run_exports:
     # https://abi-laboratory.pro/index.php?view=timeline&l=pcre2
     - {{ pin_subpackage("pcre2", max_pin="x.x") }}
@@ -25,8 +25,8 @@ build:
 
 outputs:
   - name: pcre2
-    script: build-lib.sh    # [unix]
-    script: build-lib.bat   # [win]
+    script: build-lib.sh  # [unix]
+    script: build-lib.bat  # [win]
     build:
       run_exports:
         # https://abi-laboratory.pro/index.php?view=timeline&l=pcre2
@@ -110,8 +110,8 @@ outputs:
         - cmake --build .
 
   - name: pcre2-static
-    script: build-lib.sh    # [unix]
-    script: build-lib.bat   # [win]
+    script: build-lib.sh  # [unix]
+    script: build-lib.bat  # [win]
     build:
       # we need to clobber the CMake metadata from pcre
       always_include_files:
