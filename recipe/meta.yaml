@@ -1,8 +1,8 @@
 {% set version = "10.49" %}
 
-{% set sover_posix = "3.0.7" %}
+{% set sover_posix = "3.0.9" %}
 {% set sover_posix_major = sover_posix.split(".")[0] %}
-{% set sover = "0.15.0" %}
+{% set sover = "0.16.1" %}
 {% set sover_major = sover.split(".")[0] %}
 
 package:
