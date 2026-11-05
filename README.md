@@ -232,5 +232,6 @@ Feedstock Maintainers
 
 * [@dfornika](https://github.com/dfornika/)
 * [@mariusvniekerk](https://github.com/mariusvniekerk/)
+* [@mgorny](https://github.com/mgorny/)
 * [@xhochy](https://github.com/xhochy/)
 
